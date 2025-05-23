@@ -1,0 +1,18 @@
+resilience4j:
+  circuitbreaker:
+    instances:
+      backendService:
+        register-health-indicator: true
+        failure-rate-threshold: 50   # 失败率超过50%触发熔断
+        minimum-number-of-calls: 5   # 最少需要5次调用才计算失败率
+        sliding-window-type: COUNT_BASED  # 基于调用次数统计
+        sliding-window-size: 10      # 统计窗口大小10次调用
+        wait-duration-in-open-state: 5s  # 熔断后5秒进入半开状态
+        permitted-number-of-calls-in-half-open-state: 3  # 半开状态允许3次调用
+
+server:
+  port: 8080
+
+logging:
+  level:
+    io.github.resilience4j: DEBUG
